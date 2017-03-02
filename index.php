@@ -37,7 +37,7 @@ class Users {
 		if (!valid::pass($pass)) { $this->error = 'This is not a valid password.'; return false; }
 		if ($this->exists($user)) { $this->error = 'This user already exists.'; return false; }
 		
-		$pass = crypt($pass, base64_encode($pass));	
+		$pass = crypt($pass, hash($pass));	
 		file_put_contents($this->path, $user.":".$pass."\r\n", FILE_APPEND | LOCK_EX);
 		$this->readfile();
 
